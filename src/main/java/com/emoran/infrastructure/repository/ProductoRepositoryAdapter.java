@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -23,21 +24,30 @@ public class ProductoRepositoryAdapter implements ProductoOut {
 
     @Override
     public Optional<ProductoModel> update(Long code, ProductoModel request) {
+        if(productoRepository.existsById(code)){
+            request.setId(code);
+            ProductoEntity productoEntity = ProductoEntity.fromProductoModel(request);
+            return Optional.of(productoRepository.save(productoEntity).fromProductoEntity());
+        }
         return Optional.empty();
     }
 
     @Override
     public List<ProductoModel> getAll() {
-        return null;
+        return productoRepository.findAll().stream().map(ProductoEntity::fromProductoEntity).collect(Collectors.toList());
     }
 
     @Override
     public Optional<ProductoModel> get(Long code) {
-        return Optional.empty();
+        return productoRepository.findById(code).map(ProductoEntity::fromProductoEntity);
     }
 
     @Override
     public boolean delete(Long code) {
+        if(productoRepository.existsById(code)){
+            productoRepository.deleteById(code);
+            return true;
+        }
         return false;
     }
 }
