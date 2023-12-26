@@ -11,11 +11,10 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FacturaDetalleModel {
+public class FacturaOpeDetalleModel {
 
-    private Long id;
-    private FacturaCabeceraModel factura;
-    private ProductoModel producto;
+    private Long productoId;
+    private String nombre;
     private Integer cantidad;
     private BigDecimal precioUnitario;
     private BigDecimal subtotal;

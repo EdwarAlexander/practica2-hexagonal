@@ -1,6 +1,7 @@
 package com.emoran.infrastructure.entity;
 
 import com.emoran.domain.model.FacturaCabeceraModel;
+import com.emoran.domain.model.FacturaOpeModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,5 +48,9 @@ public class FacturaCabeceraEntity {
 
     public FacturaCabeceraModel fromFacturaCabeceraEntity(){
         return new FacturaCabeceraModel(id, nombreCliente, numDocumentoCliente, fechaEmision, total);
+    }
+
+    public static FacturaCabeceraEntity fromFacturaOpeModel(FacturaOpeModel facturaOpeModel){
+        return new FacturaCabeceraEntity(facturaOpeModel.getId(), facturaOpeModel.getNombreCliente(), facturaOpeModel.getNumDocumentoCliente(), facturaOpeModel.getFechaEmision(), facturaOpeModel.getTotal());
     }
 }

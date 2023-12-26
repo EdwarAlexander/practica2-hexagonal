@@ -2,15 +2,19 @@ package com.emoran.infrastructure.config;
 
 import com.emoran.application.service.FacturaCabeceraService;
 import com.emoran.application.service.FacturaDetalleService;
+import com.emoran.application.service.FacturaOpeService;
 import com.emoran.application.service.ProductoService;
 import com.emoran.application.usecase.FacturaCabeceraServiceImpl;
 import com.emoran.application.usecase.FacturaDetalleServiceImpl;
+import com.emoran.application.usecase.FacturaOpeServiceImpl;
 import com.emoran.application.usecase.ProductoServiceImpl;
 import com.emoran.domain.ports.out.FacturaCabeceraOut;
 import com.emoran.domain.ports.out.FacturaDetalleOut;
+import com.emoran.domain.ports.out.FacturaOpeOut;
 import com.emoran.domain.ports.out.ProductoOut;
 import com.emoran.infrastructure.repository.FacturaCabeceraRepositoryAdapter;
 import com.emoran.infrastructure.repository.FacturaDetalleRepositoryAdapter;
+import com.emoran.infrastructure.repository.FacturaOpeRepositoryAdapter;
 import com.emoran.infrastructure.repository.ProductoRepositoryAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,5 +50,15 @@ public class ApplicationConfig {
     @Bean
     public FacturaDetalleOut facturaDetalleOut(FacturaDetalleRepositoryAdapter facturaDetalleRepositoryAdapter){
         return facturaDetalleRepositoryAdapter;
+    }
+
+    @Bean
+    public FacturaOpeService facturaOpeService(FacturaOpeOut facturaOpeOut){
+        return new FacturaOpeService(new FacturaOpeServiceImpl(facturaOpeOut));
+    }
+
+    @Bean
+    public FacturaOpeOut facturaOpeOut(FacturaOpeRepositoryAdapter facturaOpeRepositoryAdapter){
+        return facturaOpeRepositoryAdapter;
     }
 }
